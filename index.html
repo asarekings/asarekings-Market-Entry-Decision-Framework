@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Market Entry Decision Framework | asarekings</title>
+    <meta name="description" content="AI-Powered Market Analysis Dashboard by asarekings">
+    <meta name="author" content="asarekings">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmNmI5ZCI+PHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJ6Ii8+PC9zdmc+">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="bg-particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <h1>Aurora Market Entry Decision Framework</h1>
+            <p>AI-Powered Analytics Dashboard for Strategic Market Expansion</p>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-number" id="liveMarkets">24</div>
+                    <div class="stat-label">Live Markets</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalInvestment">$2.8B</div>
+                    <div class="stat-label">Total Investment</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="successRate">89%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="lastUpdated">15:59</div>
+                    <div class="stat-label">Last Updated (UTC)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls slide-in-left">
+            <div class="control-group">
+                <label for="industrySelect">🏭 Industry:</label>
+                <select id="industrySelect">
+                    <option value="technology">Technology</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="fintech">FinTech</option>
+                    <option value="retail">Retail</option>
+                    <option value="energy">Energy</option>
+                    <option value="manufacturing">Manufacturing</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="regionSelect">🌍 Region:</label>
+                <select id="regionSelect">
+                    <option value="all">All Regions</option>
+                    <option value="north-america">North America</option>
+                    <option value="europe">Europe</option>
+                    <option value="asia-pacific">Asia Pacific</option>
+                    <option value="emerging">Emerging Markets</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="timeHorizon">⏱️ Time Horizon:</label>
+                <select id="timeHorizon">
+                    <option value="short">6-12 Months</option>
+                    <option value="medium">1-2 Years</option>
+                    <option value="long">2+ Years</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <button onclick="generateAdvancedReport()">📊 Generate AI Report</button>
+                <button onclick="exportAdvancedData()">💾 Export Data</button>
+                <button onclick="runSimulation()">🎯 Run Simulation</button>
+            </div>
+        </div>
+        
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card fade-in" style="animation-delay: 0.1s">
+                <div class="metric-value" id="totalMarkets">24</div>
+                <div class="metric-label">Markets Analyzed</div>
+                <div class="metric-change" id="marketsChange">+3 this week</div>
+            </div>
+            <div class="metric-card fade-in" style="animation-delay: 0.2s">
+                <div class="metric-value" id="avgScore">7.3</div>
+                <div class="metric-label">Average Market Score</div>
+                <div class="metric-change" id="scoreChange">+0.2 vs last month</div>
+            </div>
+            <div class="metric-card fade-in" style="animation-delay: 0.3s">
+                <div class="metric-value" id="highPotential">8</div>
+                <div class="metric-label">High Potential Markets</div>
+                <div class="metric-change" id="potentialChange">+2 identified</div>
+            </div>
+            <div class="metric-card fade-in" style="animation-delay: 0.4s">
+                <div class="metric-value" id="projectedRoi">156%</div>
+                <div class="metric-label">Best Market ROI</div>
+                <div class="metric-change" id="roiChange">+12% projected</div>
+            </div>
+            <div class="metric-card fade-in" style="animation-delay: 0.5s">
+                <div class="metric-value" id="riskScore">4.2</div>
+                <div class="metric-label">Average Risk Score</div>
+                <div class="metric-change" id="riskChange">-0.3 lower risk</div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <div class="card slide-in-left">
+                <h3><span class="card-icon">📈</span>Aurora Market Opportunity Score</h3>
+                <div class="chart-container">
+                    <canvas id="opportunityChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card slide-in-right">
+                <h3><span class="card-icon">⚔️</span>Competitive Intelligence</h3>
+                <div class="chart-container">
+                    <canvas id="competitiveChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card fade-in">
+                <h3><span class="card-icon">📅</span>Market Entry Timeline</h3>
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card full-width slide-in-right">
+                <h3><span class="card-icon">📋</span>Market Intelligence Summary</h3>
+                <table id="comparisonTable">
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Overall Score</th>
+                            <th>Market Size</th>
+                            <th>ROI Potential</th>
+                            <th>Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- AI Recommendations -->
+        <div class="recommendations fade-in">
+            <h3>🤖 Aurora-Powered Strategic Recommendations</h3>
+            <div id="recommendationsContent">
+                <div class="recommendation-item priority-high">
+                    <h4><span>⚡</span>🚀 Immediate Entry Recommended</h4>
+                    <p><strong>Aurora Analysis:</strong> Exceptional opportunities with favorable regulatory environments and strong ROI projections.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>🌟 Aurora Dashboard v2.0 | Created by: <strong>asarekings</strong></p>
+            <p>Deployed: <span id="currentDateTime">2025-06-08 15:59:43 UTC</span></p>
+            <p>
+                <a href="https://github.com/asarekings/aurora-market-dashboard" target="_blank">🔗 View on GitHub</a>
+                <a href="mailto:asarekings@example.com">📧 Contact Developer</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Local Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
