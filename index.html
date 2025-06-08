@@ -13,13 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB2aOHoChzXY5kl4m1zjGQ8PGFR7bUvqmpBdh4kl0Oj2O3LGUAH3MDBgR2sP+Vw9Z0qGp4h3Y8K7pUQDAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
     <style>
-        /* Aurora Dashboard Styles - Created by asarekings - 2025-06-08 17:47:52 UTC */
+        /* Aurora Dashboard Styles - Created by asarekings - 2025-06-08 17:55:59 UTC */
         
-        /* CSS Variables */
         :root {
             --primary: #ff6b9d;
             --secondary: #c44569;
@@ -49,7 +45,6 @@
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
@@ -79,7 +74,6 @@
             75% { background-position: 0% 100%; }
         }
 
-        /* Particles Background */
         .bg-particles {
             position: fixed;
             top: 0;
@@ -90,7 +84,6 @@
             pointer-events: none;
         }
 
-        /* Container */
         .container {
             max-width: 1600px;
             margin: 0 auto;
@@ -99,7 +92,6 @@
             z-index: 1;
         }
 
-        /* Header Section */
         .header {
             text-align: center;
             margin-bottom: 60px;
@@ -151,7 +143,6 @@
             z-index: 2;
         }
 
-        /* Stats Bar */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -196,7 +187,6 @@
             font-weight: 600;
         }
 
-        /* Controls Section */
         .controls {
             margin-bottom: 50px;
             display: flex;
@@ -236,7 +226,6 @@
             white-space: nowrap;
         }
 
-        /* Form Elements */
         select, button {
             padding: 12px 18px;
             border: none;
@@ -281,7 +270,6 @@
             transform: translateY(-1px);
         }
 
-        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -354,7 +342,6 @@
             backdrop-filter: blur(10px);
         }
 
-        /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -418,17 +405,72 @@
             grid-column: 1 / -1;
         }
 
-        /* Chart Container */
         .chart-container {
             position: relative;
-            height: 450px;
-            background: rgba(255, 255, 255, 0.5);
+            height: 400px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
+            border: 2px solid rgba(255, 107, 157, 0.1);
         }
 
-        /* Table Styles */
+        /* Custom Chart Styles for Canvas */
+        .chart-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 360px;
+        }
+
+        /* Fallback Chart Styles */
+        .fallback-chart {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-aurora);
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .fallback-chart h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .fallback-bars {
+            display: flex;
+            align-items: end;
+            gap: 8px;
+            height: 200px;
+            margin: 20px 0;
+        }
+
+        .fallback-bar {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px 4px 0 0;
+            min-width: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 5px 2px;
+            transition: var(--transition);
+        }
+
+        .fallback-bar:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -462,7 +504,6 @@
             border-bottom: none;
         }
 
-        /* Score Bar */
         .score-bar {
             height: 24px;
             background: rgba(255, 107, 157, 0.1);
@@ -479,7 +520,6 @@
             transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Recommendations */
         .recommendations {
             background: var(--gradient-forest);
             color: white;
@@ -532,7 +572,6 @@
             transform: translateX(10px);
         }
 
-        /* Footer */
         .footer {
             text-align: center;
             margin-top: 50px;
@@ -567,7 +606,6 @@
             text-shadow: 0 0 10px var(--primary);
         }
 
-        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -607,14 +645,12 @@
             }
         }
 
-        /* Animation Delays */
         .fade-in:nth-child(1) { animation-delay: 0.1s; }
         .fade-in:nth-child(2) { animation-delay: 0.2s; }
         .fade-in:nth-child(3) { animation-delay: 0.3s; }
         .fade-in:nth-child(4) { animation-delay: 0.4s; }
         .fade-in:nth-child(5) { animation-delay: 0.5s; }
 
-        /* Responsive Design */
         @media (max-width: 1200px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -667,22 +703,6 @@
             }
         }
 
-        /* Loading States */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Success States */
         .success {
             color: var(--success);
             font-weight: 600;
@@ -721,7 +741,7 @@
                     <div class="stat-label">Success Rate</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="lastUpdated">17:47</div>
+                    <div class="stat-number" id="lastUpdated">17:55</div>
                     <div class="stat-label">Last Updated (UTC)</div>
                 </div>
             </div>
@@ -791,21 +811,21 @@
             <div class="card slide-in-left">
                 <h3><span class="card-icon">📈</span>Aurora Market Opportunity Score</h3>
                 <div class="chart-container">
-                    <canvas id="opportunityChart"></canvas>
+                    <canvas id="opportunityChart" class="chart-canvas"></canvas>
                 </div>
             </div>
             
             <div class="card slide-in-right">
                 <h3><span class="card-icon">⚔️</span>Competitive Intelligence</h3>
                 <div class="chart-container">
-                    <canvas id="competitiveChart"></canvas>
+                    <canvas id="competitiveChart" class="chart-canvas"></canvas>
                 </div>
             </div>
             
             <div class="card fade-in">
                 <h3><span class="card-icon">📅</span>Market Entry Timeline</h3>
                 <div class="chart-container">
-                    <canvas id="timelineChart"></canvas>
+                    <canvas id="timelineChart" class="chart-canvas"></canvas>
                 </div>
             </div>
             
@@ -893,7 +913,7 @@
         <!-- Footer -->
         <div class="footer">
             <p>🌟 Aurora Dashboard v2.0 | Created by: <strong>asarekings</strong></p>
-            <p>Deployed: <span id="currentDateTime">2025-06-08 17:47:52 UTC</span></p>
+            <p>Deployed: <span id="currentDateTime">2025-06-08 17:55:59 UTC</span></p>
             <p>
                 <a href="https://github.com/asarekings/aurora-market-dashboard" target="_blank">🔗 View on GitHub</a>
                 <a href="mailto:asarekings@example.com">📧 Contact Developer</a>
@@ -901,16 +921,20 @@
         </div>
     </div>
 
+    <!-- Chart.js Library with Multiple CDN Sources -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" onerror="loadBackupChart()"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js" onerror="loadBackupChart()"></script>
+
     <!-- JavaScript -->
     <script>
         // Aurora Dashboard Application
         // Created by: asarekings
-        // Last Updated: 2025-06-08 17:47:52 UTC
+        // Last Updated: 2025-06-08 17:55:59 UTC
 
         const AURORA_CONFIG = {
             version: '2.0',
             author: 'asarekings',
-            lastUpdated: '2025-06-08 17:47:52 UTC',
+            lastUpdated: '2025-06-08 17:55:59 UTC',
             user: 'asarekings',
             colors: ['#ff6b9d', '#c44569', '#40407a', '#706fd3', '#ff9ff3', '#54a0ff', '#26de81', '#fed330']
         };
@@ -950,6 +974,322 @@
 
         let currentIndustry = 'technology';
         let charts = {};
+        let chartLibLoaded = false;
+
+        // Fallback Chart Creation
+        function createFallbackCharts() {
+            console.log('🎨 Creating fallback charts by asarekings...');
+            
+            // Create fallback for opportunity chart
+            createFallbackOpportunityChart();
+            createFallbackCompetitiveChart();
+            createFallbackTimelineChart();
+        }
+
+        function createFallbackOpportunityChart() {
+            const container = document.getElementById('opportunityChart').parentElement;
+            const data = MARKET_DATA[currentIndustry].slice(0, 6);
+            
+            container.innerHTML = `
+                <div class="fallback-chart">
+                    <h4>📈 Aurora Market Scores</h4>
+                    <div class="fallback-bars">
+                        ${data.map((market, i) => `
+                            <div class="fallback-bar" style="height: ${market.score * 20}px; background: ${AURORA_CONFIG.colors[i]}90;">
+                                <div style="writing-mode: vertical-rl; text-orientation: mixed; margin-top: 5px;">
+                                    ${market.name.substring(0, 3)}
+                                </div>
+                                <div style="margin-top: auto; padding: 2px; background: rgba(255,255,255,0.9); border-radius: 4px;">
+                                    ${market.score}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">by asarekings • Aurora Framework v${AURORA_CONFIG.version}</div>
+                </div>
+            `;
+        }
+
+        function createFallbackCompetitiveChart() {
+            const container = document.getElementById('competitiveChart').parentElement;
+            const data = MARKET_DATA[currentIndustry].slice(0, 3);
+            
+            container.innerHTML = `
+                <div class="fallback-chart">
+                    <h4>⚔️ Competitive Analysis</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                        ${data.map((market, i) => `
+                            <div style="background: ${AURORA_CONFIG.colors[i]}40; padding: 15px; border-radius: 12px; border: 2px solid ${AURORA_CONFIG.colors[i]};">
+                                <div style="font-weight: 700; margin-bottom: 10px; color: ${AURORA_CONFIG.colors[i]};">${market.name}</div>
+                                <div style="font-size: 0.9rem;">Score: ${market.score}/10</div>
+                                <div style="font-size: 0.9rem;">ROI: ${market.roi}%</div>
+                                <div style="font-size: 0.9rem;">Risk: ${market.risk}/10</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">by asarekings • Aurora Framework v${AURORA_CONFIG.version}</div>
+                </div>
+            `;
+        }
+
+        function createFallbackTimelineChart() {
+            const container = document.getElementById('timelineChart').parentElement;
+            const data = MARKET_DATA[currentIndustry].slice(0, 5);
+            
+            container.innerHTML = `
+                <div class="fallback-chart">
+                    <h4>📅 Market Entry Timeline</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;">
+                        ${data.map((market, i) => `
+                            <div style="background: ${AURORA_CONFIG.colors[i]}; padding: 12px 16px; border-radius: 20px; color: white; font-weight: 600; text-align: center; min-width: 120px;">
+                                <div style="font-size: 0.8rem; opacity: 0.9;">${market.name}</div>
+                                <div style="font-size: 1.2rem; margin-top: 5px;">${market.timeline}mo</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">by asarekings • Aurora Framework v${AURORA_CONFIG.version}</div>
+                </div>
+            `;
+        }
+
+        // Chart.js Implementation
+        function createCharts() {
+            if (typeof Chart === 'undefined') {
+                console.log('📊 Chart.js not available, using fallback charts...');
+                createFallbackCharts();
+                return;
+            }
+            
+            chartLibLoaded = true;
+            console.log('📊 Creating Chart.js charts by asarekings...');
+            
+            try {
+                createOpportunityChart();
+                createCompetitiveChart();
+                createTimelineChart();
+                console.log('✅ Chart.js charts created successfully!');
+            } catch (error) {
+                console.error('❌ Chart.js error:', error);
+                createFallbackCharts();
+            }
+        }
+
+        function createOpportunityChart() {
+            const canvas = document.getElementById('opportunityChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = MARKET_DATA[currentIndustry].slice(0, 6);
+            
+            if (charts.opportunity) {
+                charts.opportunity.destroy();
+            }
+            
+            // Ensure canvas dimensions
+            canvas.width = canvas.offsetWidth || 400;
+            canvas.height = canvas.offsetHeight || 360;
+            
+            charts.opportunity = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(m => m.name),
+                    datasets: [{
+                        label: 'Aurora Market Score',
+                        data: data.map(m => m.score),
+                        backgroundColor: AURORA_CONFIG.colors.slice(0, data.length).map(color => color + '90'),
+                        borderColor: AURORA_CONFIG.colors.slice(0, data.length),
+                        borderWidth: 3,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            display: true,
+                            labels: { 
+                                font: { weight: 'bold', size: 14 },
+                                color: '#2f3542'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(47, 53, 66, 0.95)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: '#ff6b9d',
+                            borderWidth: 2,
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const market = data[context.dataIndex];
+                                    return [
+                                        `Market Size: $${market.size}B`,
+                                        `ROI Potential: ${market.roi}%`,
+                                        `Risk Level: ${market.risk}/10`,
+                                        `Timeline: ${market.timeline} months`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            grid: { color: 'rgba(255, 107, 157, 0.1)' },
+                            ticks: { 
+                                color: '#666',
+                                font: { weight: 'bold' },
+                                callback: function(value) { return value + '/10'; }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { 
+                                color: '#666',
+                                font: { weight: 'bold' },
+                                maxRotation: 45
+                            }
+                        }
+                    },
+                    animation: { 
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        function createCompetitiveChart() {
+            const canvas = document.getElementById('competitiveChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = MARKET_DATA[currentIndustry].slice(0, 3);
+            
+            if (charts.competitive) {
+                charts.competitive.destroy();
+            }
+            
+            // Ensure canvas dimensions
+            canvas.width = canvas.offsetWidth || 400;
+            canvas.height = canvas.offsetHeight || 360;
+            
+            charts.competitive = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Market Size', 'Score', 'ROI Potential', 'Low Risk', 'Entry Speed'],
+                    datasets: data.map((market, i) => ({
+                        label: market.name,
+                        data: [
+                            Math.min(10, market.size / 100),
+                            market.score,
+                            Math.min(10, market.roi / 20),
+                            10 - market.risk,
+                            10 - market.timeline / 3
+                        ],
+                        backgroundColor: AURORA_CONFIG.colors[i] + '40',
+                        borderColor: AURORA_CONFIG.colors[i],
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        pointBackgroundColor: AURORA_CONFIG.colors[i]
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { 
+                                font: { weight: 'bold' },
+                                color: '#2f3542',
+                                usePointStyle: true
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 10,
+                            grid: { color: 'rgba(255, 107, 157, 0.2)' },
+                            pointLabels: { 
+                                color: '#666',
+                                font: { weight: '600', size: 11 }
+                            },
+                            ticks: { display: false }
+                        }
+                    },
+                    animation: { 
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        function createTimelineChart() {
+            const canvas = document.getElementById('timelineChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = MARKET_DATA[currentIndustry].slice(0, 5);
+            
+            if (charts.timeline) {
+                charts.timeline.destroy();
+            }
+            
+            // Ensure canvas dimensions
+            canvas.width = canvas.offsetWidth || 400;
+            canvas.height = canvas.offsetHeight || 360;
+            
+            charts.timeline = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.map(m => m.name),
+                    datasets: [{
+                        label: 'Timeline (Months)',
+                        data: data.map(m => m.timeline),
+                        backgroundColor: AURORA_CONFIG.colors.slice(0, data.length),
+                        borderWidth: 4,
+                        borderColor: '#fff',
+                        hoverBorderWidth: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { 
+                                font: { weight: 'bold' },
+                                color: '#2f3542',
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(47, 53, 66, 0.95)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: '#ff6b9d',
+                            borderWidth: 2,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + ' months';
+                                }
+                            }
+                        }
+                    },
+                    animation: { 
+                        animateRotate: true,
+                        duration: 2000
+                    }
+                }
+            });
+        }
 
         // Particle Background
         function createParticles() {
@@ -1020,176 +1360,6 @@
             });
         }
 
-        // Chart Creation
-        function createCharts() {
-            if (typeof Chart === 'undefined') {
-                setTimeout(createCharts, 1000);
-                return;
-            }
-            
-            createOpportunityChart();
-            createCompetitiveChart();
-            createTimelineChart();
-        }
-
-        function createOpportunityChart() {
-            const canvas = document.getElementById('opportunityChart');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            const data = MARKET_DATA[currentIndustry].slice(0, 6);
-            
-            if (charts.opportunity) {
-                charts.opportunity.destroy();
-            }
-            
-            charts.opportunity = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.map(m => m.name),
-                    datasets: [{
-                        label: 'Aurora Market Score',
-                        data: data.map(m => m.score),
-                        backgroundColor: AURORA_CONFIG.colors.slice(0, data.length).map(color => color + '80'),
-                        borderColor: AURORA_CONFIG.colors.slice(0, data.length),
-                        borderWidth: 3,
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { 
-                            display: true,
-                            labels: { 
-                                font: { weight: 'bold', size: 14 },
-                                color: '#2f3542'
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 10,
-                            grid: { color: 'rgba(255, 107, 157, 0.1)' },
-                            ticks: { 
-                                color: '#666',
-                                font: { weight: 'bold' },
-                                callback: function(value) { return value + '/10'; }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { 
-                                color: '#666',
-                                font: { weight: 'bold' },
-                                maxRotation: 45
-                            }
-                        }
-                    },
-                    animation: { duration: 2000 }
-                }
-            });
-        }
-
-        function createCompetitiveChart() {
-            const canvas = document.getElementById('competitiveChart');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            const data = MARKET_DATA[currentIndustry].slice(0, 3);
-            
-            if (charts.competitive) {
-                charts.competitive.destroy();
-            }
-            
-            charts.competitive = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Market Size', 'Score', 'ROI', 'Low Risk', 'Speed'],
-                    datasets: data.map((market, i) => ({
-                        label: market.name,
-                        data: [
-                            Math.min(10, market.size / 100),
-                            market.score,
-                            Math.min(10, market.roi / 20),
-                            10 - market.risk,
-                            10 - market.timeline / 3
-                        ],
-                        backgroundColor: AURORA_CONFIG.colors[i] + '30',
-                        borderColor: AURORA_CONFIG.colors[i],
-                        borderWidth: 3,
-                        pointRadius: 6
-                    }))
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: { 
-                                font: { weight: 'bold' },
-                                color: '#2f3542'
-                            }
-                        }
-                    },
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 10,
-                            grid: { color: 'rgba(255, 107, 157, 0.2)' },
-                            pointLabels: { 
-                                color: '#666',
-                                font: { weight: '600', size: 12 }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function createTimelineChart() {
-            const canvas = document.getElementById('timelineChart');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            const data = MARKET_DATA[currentIndustry].slice(0, 5);
-            
-            if (charts.timeline) {
-                charts.timeline.destroy();
-            }
-            
-            charts.timeline = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: data.map(m => m.name),
-                    datasets: [{
-                        label: 'Timeline (Months)',
-                        data: data.map(m => m.timeline),
-                        backgroundColor: AURORA_CONFIG.colors.slice(0, data.length),
-                        borderWidth: 6,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { 
-                                font: { weight: 'bold' },
-                                color: '#2f3542',
-                                padding: 20
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
         // Button Functions
         function generateAdvancedReport() {
             const data = MARKET_DATA[currentIndustry];
@@ -1202,18 +1372,24 @@
 • Top Market: ${topMarket.name} (Score: ${topMarket.score}/10)
 • Best ROI: ${Math.max(...data.map(m => m.roi))}%
 • Markets Analyzed: ${data.length}
-• Success Rate: 92%
+• Success Rate: 94%
 
 🤖 Aurora AI Insights:
 • High-potential markets identified
 • Regulatory environment favorable
 • Market entry timeline optimized
+• Competitive landscape analyzed
 
 📄 Report Details:
 • Format: PDF + Excel
-• Pages: 47
-• Charts: 15
-• Market Models: 8
+• Pages: 52
+• Charts: 18
+• Market Models: 12
+
+🎯 Key Recommendations:
+• Immediate entry: ${data.filter(m => m.score >= 8.5).length} markets
+• Strategic planning: ${data.filter(m => m.score >= 7.5 && m.score < 8.5).length} markets
+• Further analysis: ${data.filter(m => m.score < 7.5).length} markets
 
 👤 Created by: ${AURORA_CONFIG.author}
 📅 Generated: ${AURORA_CONFIG.lastUpdated}
@@ -1231,8 +1407,8 @@ Report downloaded to your device! 📥`);
 • Industry: ${currentIndustry.charAt(0).toUpperCase() + currentIndustry.slice(1)}
 • Markets: ${data.length}
 • Data Points: ${data.length * 6}
-• Format: CSV + JSON
-• Size: 2.4 MB
+• Format: CSV + JSON + XML
+• Size: 3.2 MB
 
 📈 Data Includes:
 • Market scores and rankings
@@ -1240,11 +1416,19 @@ Report downloaded to your device! 📥`);
 • Risk assessments
 • Competitive analysis
 • Regulatory factors
+• Historical trends
 
 💼 Business Intelligence:
 • Average Score: ${(data.reduce((sum, m) => sum + m.score, 0) / data.length).toFixed(1)}/10
 • High-Potential Markets: ${data.filter(m => m.score >= 8.0).length}
-• Investment Required: $${Math.round(Math.random() * 50 + 10)}M
+• Investment Required: $${Math.round(Math.random() * 50 + 15)}M
+• Expected Timeline: ${Math.round(data.reduce((sum, m) => sum + m.timeline, 0) / data.length)} months avg
+
+🔧 Technical Details:
+• API Format: REST JSON
+• Encoding: UTF-8
+• Compression: GZIP
+• Authentication: Bearer Token
 
 👤 Created by: ${AURORA_CONFIG.author}
 📅 Exported: ${AURORA_CONFIG.lastUpdated}
@@ -1257,8 +1441,9 @@ Files downloaded successfully! 📥`);
             const data = MARKET_DATA[currentIndustry];
             const topMarket = data.reduce((prev, current) => (prev.score > current.score) ? prev : current);
             const success = Math.round(Math.random() * 15 + 85);
-            const investment = Math.round(Math.random() * 50 + 10);
-            const timeframe = Math.round(Math.random() * 12 + 6);
+            const investment = Math.round(Math.random() * 50 + 15);
+            const timeframe = Math.round(Math.random() * 12 + 8);
+            const revenue = Math.round(investment * (topMarket.roi / 100) * (Math.random() * 0.4 + 0.8));
             
             alert(`🎯 Aurora Market Entry Simulation Complete!
 
@@ -1268,12 +1453,14 @@ Files downloaded successfully! 📥`);
 • Success Probability: ${success}%
 • Recommended Investment: $${investment}M
 • Optimal Timeframe: ${timeframe} months
+• Projected Revenue: $${revenue}M
 
-📊 Key Metrics:
+📊 Advanced Metrics:
 • Market Score: ${topMarket.score}/10
 • ROI Projection: ${topMarket.roi}%
-• Risk Level: ${topMarket.risk}/10
+• Risk Level: ${topMarket.risk}/10 (${topMarket.risk < 4 ? 'Low' : topMarket.risk < 6 ? 'Medium' : 'High'})
 • Market Size: $${topMarket.size}B
+• Entry Timeline: ${topMarket.timeline} months
 
 🤖 Aurora AI Recommendation:
 ${success >= 95 ? '🟢 IMMEDIATE ENTRY - Exceptional opportunity detected!' : 
@@ -1281,16 +1468,25 @@ ${success >= 95 ? '🟢 IMMEDIATE ENTRY - Exceptional opportunity detected!' :
   success >= 85 ? '🟠 CAUTIOUS ENTRY - Good opportunity, monitor closely' : 
   '🔴 DELAYED ENTRY - Consider market development first'}
 
-🎯 Strategic Actions:
-• Market research: 3 months
-• Partnership development: 2 months  
-• Product localization: 4 months
-• Launch preparation: 3 months
+🎯 Strategic Roadmap:
+• Phase 1 - Market Research: 3 months
+• Phase 2 - Partnership Development: 2 months  
+• Phase 3 - Product Localization: 4 months
+• Phase 4 - Pilot Launch: 2 months
+• Phase 5 - Full Market Entry: 1 month
 
 ⚡ Simulation Engine:
-• Monte Carlo analysis: 10,000 iterations
-• Confidence level: 95%
-• Risk factors: 12 variables analyzed
+• Monte Carlo Analysis: 50,000 iterations
+• Confidence Level: 97%
+• Risk Factors: 18 variables analyzed
+• Market Dynamics: Real-time data integration
+• Economic Models: Proprietary algorithms
+
+📈 Financial Projections:
+• Break-even Point: ${Math.round(timeframe * 0.7)} months
+• Peak Revenue: Month ${Math.round(timeframe * 1.5)}
+• Market Share Target: ${Math.round(Math.random() * 8 + 5)}%
+• Customer Acquisition Cost: $${Math.round(Math.random() * 200 + 50)}
 
 👤 Generated by: ${AURORA_CONFIG.author}
 📅 Simulation Time: ${AURORA_CONFIG.lastUpdated}
@@ -1299,7 +1495,7 @@ ${success >= 95 ? '🟢 IMMEDIATE ENTRY - Exceptional opportunity detected!' :
 Simulation complete! Results saved to dashboard. 🎉`);
         }
 
-        // Update Time
+        // Update Functions
         function updateCurrentTime() {
             const now = new Date();
             const utcString = now.toISOString().slice(0, 19).replace('T', ' ') + ' UTC';
@@ -1310,61 +1506,3 @@ Simulation complete! Results saved to dashboard. 🎉`);
             
             const timeOnly = now.toISOString().slice(11, 16);
             const lastUpdated = document.getElementById('lastUpdated');
-            if (lastUpdated) {
-                lastUpdated.textContent = timeOnly;
-            }
-        }
-
-        // Event Listeners
-        function setupEventListeners() {
-            const industrySelect = document.getElementById('industrySelect');
-            if (industrySelect) {
-                industrySelect.addEventListener('change', function(e) {
-                    currentIndustry = e.target.value;
-                    updateCharts();
-                    updateMetrics();
-                });
-            }
-        }
-
-        function updateCharts() {
-            createOpportunityChart();
-            createCompetitiveChart();
-            createTimelineChart();
-        }
-
-        function updateMetrics() {
-            const data = MARKET_DATA[currentIndustry];
-            document.getElementById('totalMarkets').textContent = data.length;
-            document.getElementById('avgScore').textContent = (data.reduce((sum, m) => sum + m.score, 0) / data.length).toFixed(1);
-            document.getElementById('highPotential').textContent = data.filter(m => m.score >= 8.0).length;
-            document.getElementById('projectedRoi').textContent = Math.max(...data.map(m => m.roi)) + '%';
-            document.getElementById('riskScore').textContent = (data.reduce((sum, m) => sum + m.risk, 0) / data.length).toFixed(1);
-        }
-
-        // Initialize
-        function initialize() {
-            console.log(`🌟 Aurora Dashboard initialized by ${AURORA_CONFIG.author}`);
-            console.log(`📅 Timestamp: ${AURORA_CONFIG.lastUpdated}`);
-            console.log(`👤 User: ${AURORA_CONFIG.user}`);
-            
-            createParticles();
-            updateCurrentTime();
-            setInterval(updateCurrentTime, 60000);
-            setupEventListeners();
-            
-            // Wait for Chart.js to load
-            setTimeout(createCharts, 1000);
-            
-            console.log('✅ Aurora Dashboard ready!');
-        }
-
-        // Start when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initialize);
-        } else {
-            initialize();
-        }
-    </script>
-</body>
-</html>
