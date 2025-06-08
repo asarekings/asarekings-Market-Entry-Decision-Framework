@@ -6,7 +6,7 @@
     <title>Aurora Market Entry Decision Framework | asarekings</title>
     <meta name="description" content="AI-Powered Market Analysis Dashboard by asarekings">
     <meta name="author" content="asarekings">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmNmI5ZCI+PHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJ6Ii8+PC9zdmc+">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmNmI5ZCI+PHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJ6Ci8+PC9zdmc+">
     
     <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
@@ -39,7 +39,7 @@
                     <div class="stat-label">Success Rate</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="lastUpdated">15:59</div>
+                    <div class="stat-number" id="lastUpdated">17:16</div>
                     <div class="stat-label">Last Updated (UTC)</div>
                 </div>
             </div>
@@ -69,14 +69,6 @@
                 </select>
             </div>
             <div class="control-group">
-                <label for="timeHorizon">⏱️ Time Horizon:</label>
-                <select id="timeHorizon">
-                    <option value="short">6-12 Months</option>
-                    <option value="medium">1-2 Years</option>
-                    <option value="long">2+ Years</option>
-                </select>
-            </div>
-            <div class="control-group">
                 <button onclick="generateAdvancedReport()">📊 Generate AI Report</button>
                 <button onclick="exportAdvancedData()">💾 Export Data</button>
                 <button onclick="runSimulation()">🎯 Run Simulation</button>
@@ -86,29 +78,29 @@
         <!-- Metrics Grid -->
         <div class="metrics-grid">
             <div class="metric-card fade-in" style="animation-delay: 0.1s">
-                <div class="metric-value" id="totalMarkets">24</div>
+                <div class="metric-value" id="totalMarkets">8</div>
                 <div class="metric-label">Markets Analyzed</div>
-                <div class="metric-change" id="marketsChange">+3 this week</div>
+                <div class="metric-change">+3 this week</div>
             </div>
             <div class="metric-card fade-in" style="animation-delay: 0.2s">
-                <div class="metric-value" id="avgScore">7.3</div>
+                <div class="metric-value" id="avgScore">8.0</div>
                 <div class="metric-label">Average Market Score</div>
-                <div class="metric-change" id="scoreChange">+0.2 vs last month</div>
+                <div class="metric-change">+0.2 vs last month</div>
             </div>
             <div class="metric-card fade-in" style="animation-delay: 0.3s">
-                <div class="metric-value" id="highPotential">8</div>
+                <div class="metric-value" id="highPotential">5</div>
                 <div class="metric-label">High Potential Markets</div>
-                <div class="metric-change" id="potentialChange">+2 identified</div>
+                <div class="metric-change">+2 identified</div>
             </div>
             <div class="metric-card fade-in" style="animation-delay: 0.4s">
-                <div class="metric-value" id="projectedRoi">156%</div>
+                <div class="metric-value" id="projectedRoi">180%</div>
                 <div class="metric-label">Best Market ROI</div>
-                <div class="metric-change" id="roiChange">+12% projected</div>
+                <div class="metric-change">+12% projected</div>
             </div>
             <div class="metric-card fade-in" style="animation-delay: 0.5s">
-                <div class="metric-value" id="riskScore">4.2</div>
+                <div class="metric-value" id="riskScore">4.1</div>
                 <div class="metric-label">Average Risk Score</div>
-                <div class="metric-change" id="riskChange">-0.3 lower risk</div>
+                <div class="metric-change">-0.3 lower risk</div>
             </div>
         </div>
         
@@ -117,21 +109,21 @@
             <div class="card slide-in-left">
                 <h3><span class="card-icon">📈</span>Aurora Market Opportunity Score</h3>
                 <div class="chart-container">
-                    <canvas id="opportunityChart"></canvas>
+                    <canvas id="opportunityChart" width="400" height="400"></canvas>
                 </div>
             </div>
             
             <div class="card slide-in-right">
                 <h3><span class="card-icon">⚔️</span>Competitive Intelligence</h3>
                 <div class="chart-container">
-                    <canvas id="competitiveChart"></canvas>
+                    <canvas id="competitiveChart" width="400" height="400"></canvas>
                 </div>
             </div>
             
             <div class="card fade-in">
                 <h3><span class="card-icon">📅</span>Market Entry Timeline</h3>
                 <div class="chart-container">
-                    <canvas id="timelineChart"></canvas>
+                    <canvas id="timelineChart" width="400" height="400"></canvas>
                 </div>
             </div>
             
@@ -147,7 +139,44 @@
                             <th>Risk Level</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody"></tbody>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td><strong style="color: #ff6b9d;">United States</strong></td>
+                            <td>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 87%;"></div>
+                                </div>
+                                <small><strong>8.7/10</strong></small>
+                            </td>
+                            <td><strong>$850B</strong></td>
+                            <td><strong style="color: #40407a">145%</strong></td>
+                            <td><span style="color: #26de81">4.2/10</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #c44569;">Germany</strong></td>
+                            <td>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 82%;"></div>
+                                </div>
+                                <small><strong>8.2/10</strong></small>
+                            </td>
+                            <td><strong>$320B</strong></td>
+                            <td><strong style="color: #40407a">125%</strong></td>
+                            <td><span style="color: #26de81">3.5/10</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #40407a;">United Kingdom</strong></td>
+                            <td>
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 81%;"></div>
+                                </div>
+                                <small><strong>8.1/10</strong></small>
+                            </td>
+                            <td><strong>$240B</strong></td>
+                            <td><strong style="color: #40407a">135%</strong></td>
+                            <td><span style="color: #26de81">3.8/10</span></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -157,8 +186,22 @@
             <h3>🤖 Aurora-Powered Strategic Recommendations</h3>
             <div id="recommendationsContent">
                 <div class="recommendation-item priority-high">
-                    <h4><span>⚡</span>🚀 Immediate Entry Recommended</h4>
-                    <p><strong>Aurora Analysis:</strong> Exceptional opportunities with favorable regulatory environments and strong ROI projections.</p>
+                    <h4 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <span style="font-size: 1.5em;">⚡</span>
+                        🚀 Immediate Entry Recommended
+                    </h4>
+                    <div style="margin-bottom: 12px;">
+                        <strong>Target Markets:</strong> 
+                        <span style="color: white; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 8px; margin-right: 8px; font-size: 0.9em;">United States</span>
+                        <span style="color: white; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 8px; margin-right: 8px; font-size: 0.9em;">Germany</span>
+                        <span style="color: white; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 8px; margin-right: 8px; font-size: 0.9em;">UK</span>
+                    </div>
+                    <p style="margin-bottom: 12px;"><strong>Aurora Analysis:</strong> Exceptional opportunities with favorable regulatory environments and strong ROI projections. Analysis powered by asarekings framework.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; font-size: 0.9em;">
+                        <div><strong>Avg. Timeline:</strong> 7 months</div>
+                        <div><strong>Avg. ROI:</strong> 135%</div>
+                        <div><strong>Avg. Risk:</strong> 3.8/10</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,7 +209,7 @@
         <!-- Footer -->
         <div class="footer">
             <p>🌟 Aurora Dashboard v2.0 | Created by: <strong>asarekings</strong></p>
-            <p>Deployed: <span id="currentDateTime">2025-06-08 15:59:43 UTC</span></p>
+            <p>Deployed: <span id="currentDateTime">2025-06-08 17:16:15 UTC</span></p>
             <p>
                 <a href="https://github.com/asarekings/aurora-market-dashboard" target="_blank">🔗 View on GitHub</a>
                 <a href="mailto:asarekings@example.com">📧 Contact Developer</a>
