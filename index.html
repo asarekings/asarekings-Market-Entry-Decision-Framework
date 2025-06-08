@@ -14,8 +14,555 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Local Styles -->
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Embedded Styles -->
+    <style>
+        :root {
+            --primary-color: #ff6b9d;
+            --secondary-color: #c44569;
+            --accent-color: #40407a;
+            --accent-light: #706fd3;
+            --success-color: #26de81;
+            --warning-color: #fed330;
+            --danger-color: #ff3838;
+            --dark-color: #2f3542;
+            --light-color: #f1f2f6;
+            --tertiary-color: #ff9ff3;
+            --quaternary-color: #54a0ff;
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            --gradient-aurora: linear-gradient(45deg, var(--primary-color), var(--tertiary-color), var(--accent-light), var(--quaternary-color));
+            --gradient-sunset: linear-gradient(135deg, var(--warning-color) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
+            --gradient-ocean: linear-gradient(135deg, var(--quaternary-color) 0%, var(--accent-color) 100%);
+            --gradient-forest: linear-gradient(135deg, var(--success-color) 0%, var(--accent-color) 100%);
+            
+            --shadow-light: 0 8px 32px rgba(255, 107, 157, 0.15);
+            --shadow-medium: 0 12px 40px rgba(255, 107, 157, 0.25);
+            --shadow-heavy: 0 20px 60px rgba(255, 107, 157, 0.35);
+            --shadow-glow: 0 0 30px rgba(255, 107, 157, 0.3);
+            
+            --border-radius: 24px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-aurora);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--dark-color);
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 25px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(25px);
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 107, 157, 0.2);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.15), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            color: var(--accent-color);
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(255, 107, 157, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+            background: rgba(255, 107, 157, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--gradient-sunset);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .controls {
+            margin-bottom: 40px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(25px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px 22px;
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .control-group:hover {
+            background: white;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .control-group label {
+            font-weight: 700;
+            color: var(--dark-color);
+            font-size: 0.95em;
+        }
+
+        select, button {
+            padding: 15px 22px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        select {
+            background: white;
+            border: 2px solid rgba(255, 107, 157, 0.2);
+            color: var(--dark-color);
+            min-width: 160px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.15);
+        }
+
+        button {
+            background: var(--gradient-sunset);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .metric-card:nth-child(1) { background: var(--gradient-sunset); }
+        .metric-card:nth-child(2) { background: var(--gradient-ocean); }
+        .metric-card:nth-child(3) { background: var(--gradient-forest); }
+        .metric-card:nth-child(4) { background: var(--gradient-primary); }
+        .metric-card:nth-child(5) { background: var(--gradient-aurora); }
+
+        .metric-card:hover {
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .metric-value {
+            font-size: 2.8em;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1em;
+            opacity: 0.95;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-change {
+            font-size: 0.85em;
+            margin-top: 8px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.25);
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow-light);
+            backdrop-filter: blur(25px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 107, 157, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-sunset);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 480px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        th, td {
+            padding: 18px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+        }
+
+        th {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        tr:hover {
+            background: rgba(255, 107, 157, 0.05);
+        }
+
+        .score-bar {
+            height: 28px;
+            background: rgba(255, 107, 157, 0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            margin: 8px 0;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: var(--gradient-sunset);
+            border-radius: 14px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .recommendations {
+            background: var(--gradient-forest);
+            color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .recommendations h3 {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            font-weight: 800;
+        }
+
+        .recommendation-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(15px);
+            transition: var(--transition);
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .recommendation-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(10px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer p {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            transform: translateX(-120px);
+            opacity: 0;
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-right {
+            transform: translateX(120px);
+            opacity: 0;
+            animation: slideInRight 1s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 35px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group {
+                justify-content: space-between;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="bg-particles" id="particles"></div>
@@ -39,7 +586,7 @@
                     <div class="stat-label">Success Rate</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="lastUpdated">17:16</div>
+                    <div class="stat-number" id="lastUpdated">17:38</div>
                     <div class="stat-label">Last Updated (UTC)</div>
                 </div>
             </div>
@@ -209,7 +756,7 @@
         <!-- Footer -->
         <div class="footer">
             <p>🌟 Aurora Dashboard v2.0 | Created by: <strong>asarekings</strong></p>
-            <p>Deployed: <span id="currentDateTime">2025-06-08 17:16:15 UTC</span></p>
+            <p>Deployed: <span id="currentDateTime">2025-06-08 17:38:30 UTC</span></p>
             <p>
                 <a href="https://github.com/asarekings/aurora-market-dashboard" target="_blank">🔗 View on GitHub</a>
                 <a href="mailto:asarekings@example.com">📧 Contact Developer</a>
@@ -217,10 +764,256 @@
         </div>
     </div>
     
-    <!-- Local Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/charts.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/main.js"></script>
+    <!-- Embedded Scripts -->
+    <script>
+        // Aurora Dashboard Configuration
+        // Created by: asarekings
+        // Last Updated: 2025-06-08 17:38:30 UTC
+        // User: asarekings
+
+        const AURORA_CONFIG = {
+            version: '2.0',
+            author: 'asarekings',
+            lastUpdated: '2025-06-08 17:38:30 UTC',
+            user: 'asarekings',
+            colors: {
+                primary: ['#ff6b9d', '#c44569', '#40407a', '#706fd3', '#ff9ff3', '#54a0ff', '#26de81', '#fed330']
+            }
+        };
+
+        const MARKET_DATA = {
+            technology: [
+                { name: 'United States', size: 850, score: 8.7, roi: 145, risk: 4.2, timeline: 6 },
+                { name: 'China', size: 680, score: 7.9, roi: 180, risk: 6.8, timeline: 12 },
+                { name: 'Germany', size: 320, score: 8.2, roi: 125, risk: 3.5, timeline: 8 },
+                { name: 'Japan', size: 280, score: 7.6, roi: 115, risk: 4.1, timeline: 10 },
+                { name: 'United Kingdom', size: 240, score: 8.1, roi: 135, risk: 3.8, timeline: 7 },
+                { name: 'Singapore', size: 85, score: 8.0, roi: 142, risk: 3.1, timeline: 7 }
+            ]
+        };
+
+        let currentIndustry = 'technology';
+        let charts = {};
+        let isInitialized = false;
+
+        // Create Charts
+        function createCharts() {
+            if (typeof Chart === 'undefined') {
+                console.warn('Chart.js not loaded - creating fallback');
+                createFallbackChart();
+                return;
+            }
+            
+            try {
+                createOpportunityChart();
+                console.log('✅ Charts created successfully by asarekings');
+            } catch (error) {
+                console.error('Error creating charts:', error);
+                createFallbackChart();
+            }
+        }
+
+        function createOpportunityChart() {
+            const canvas = document.getElementById('opportunityChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = MARKET_DATA[currentIndustry].slice(0, 6);
+            
+            if (charts.opportunity) {
+                charts.opportunity.destroy();
+            }
+            
+            charts.opportunity = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(m => m.name),
+                    datasets: [{
+                        label: 'Aurora Market Score',
+                        data: data.map(m => m.score),
+                        backgroundColor: AURORA_CONFIG.colors.primary.slice(0, data.length).map(color => color + '80'),
+                        borderColor: AURORA_CONFIG.colors.primary.slice(0, data.length),
+                        borderWidth: 3,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, labels: { font: { weight: 'bold' } } }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: { 
+                                callback: function(value) { return value + '/10'; }
+                            }
+                        }
+                    },
+                    animation: { duration: 2000 }
+                }
+            });
+        }
+
+        function createFallbackChart() {
+            const canvas = document.getElementById('opportunityChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = MARKET_DATA[currentIndustry].slice(0, 6);
+            
+            canvas.width = 400;
+            canvas.height = 400;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = '16px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#ff6b9d';
+            ctx.fillText('Aurora Market Scores', canvas.width / 2, 30);
+            
+            const barWidth = (canvas.width - 100) / data.length;
+            const maxBarHeight = canvas.height - 120;
+            
+            data.forEach((market, i) => {
+                const barHeight = (market.score / 10) * maxBarHeight;
+                const x = 50 + i * barWidth;
+                const y = canvas.height - 70 - barHeight;
+                
+                ctx.fillStyle = AURORA_CONFIG.colors.primary[i];
+                ctx.fillRect(x, y, barWidth - 10, barHeight);
+                
+                ctx.fillStyle = '#666';
+                ctx.font = '10px Inter, sans-serif';
+                ctx.save();
+                ctx.translate(x + (barWidth - 10) / 2, canvas.height - 50);
+                ctx.rotate(-Math.PI / 6);
+                ctx.fillText(market.name.substring(0, 8), 0, 0);
+                ctx.restore();
+                
+                ctx.fillStyle = '#333';
+                ctx.font = '14px Inter, sans-serif';
+                ctx.fillText(market.score.toFixed(1), x + (barWidth - 10) / 2, y - 10);
+            });
+            
+            ctx.fillStyle = '#999';
+            ctx.font = '10px Inter, sans-serif';
+            ctx.fillText('by asarekings', canvas.width - 50, canvas.height - 10);
+        }
+
+        // Button Functions
+        function generateAdvancedReport() {
+            const data = MARKET_DATA[currentIndustry];
+            const topMarket = data.reduce((prev, current) => (prev.score > current.score) ? prev : current);
+            
+            alert(`🎯 Aurora Report Generated Successfully!
+
+Industry: Technology
+Top Market: ${topMarket.name} (Score: ${topMarket.score}/10)
+Best ROI: ${Math.max(...data.map(m => m.roi))}%
+
+Created by: ${AURORA_CONFIG.author}
+User: ${AURORA_CONFIG.user}
+Time: ${AURORA_CONFIG.lastUpdated}
+
+Report would be downloaded in a real deployment!`);
+        }
+
+        function exportAdvancedData() {
+            const data = MARKET_DATA[currentIndustry];
+            
+            alert(`💾 Aurora Data Exported Successfully!
+
+Markets Analyzed: ${data.length}
+Data Format: CSV
+Average Score: ${(data.reduce((sum, m) => sum + m.score, 0) / data.length).toFixed(1)}/10
+
+Created by: ${AURORA_CONFIG.author}
+User: ${AURORA_CONFIG.user}
+Time: ${AURORA_CONFIG.lastUpdated}
+
+Data would be downloaded in a real deployment!`);
+        }
+
+        function runSimulation() {
+            const data = MARKET_DATA[currentIndustry];
+            const topMarket = data.reduce((prev, current) => (prev.score > current.score) ? prev : current);
+            const success = Math.round(Math.random() * 15 + 85);
+            
+            alert(`🎯 Aurora Simulation Complete!
+
+📊 Analysis Results:
+• Industry: Technology
+• Top Market: ${topMarket.name}
+• Success Probability: ${success}%
+• Timeline: ${topMarket.timeline} months
+• ROI Projection: ${topMarket.roi}%
+
+🤖 Aurora AI Recommendation:
+${success >= 90 ? 'IMMEDIATE ACTION - Exceptional opportunity!' : 
+  success >= 85 ? 'PROCEED - Strong market potential' : 
+  'CAUTION - Additional analysis recommended'}
+
+Generated by: ${AURORA_CONFIG.author}
+User: ${AURORA_CONFIG.user}
+Framework: Aurora v${AURORA_CONFIG.version}
+Time: ${AURORA_CONFIG.lastUpdated}`);
+        }
+
+        // Update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const utcString = now.toISOString().slice(0, 19).replace('T', ' ') + ' UTC';
+            const element = document.getElementById('currentDateTime');
+            if (element) {
+                element.textContent = utcString;
+            }
+            
+            const timeOnly = now.toISOString().slice(11, 16);
+            const lastUpdated = document.getElementById('lastUpdated');
+            if (lastUpdated) {
+                lastUpdated.textContent = timeOnly;
+            }
+        }
+
+        // Initialize
+        function init() {
+            if (isInitialized) return;
+            isInitialized = true;
+            
+            console.log(`🌟 Aurora Dashboard initialized by ${AURORA_CONFIG.author} (${AURORA_CONFIG.user})`);
+            console.log(`📅 Time: ${AURORA_CONFIG.lastUpdated}`);
+            
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 60000);
+            
+            // Wait for Chart.js
+            if (typeof Chart !== 'undefined') {
+                createCharts();
+            } else {
+                setTimeout(() => {
+                    if (typeof Chart !== 'undefined') {
+                        createCharts();
+                    } else {
+                        createFallbackChart();
+                    }
+                }, 2000);
+            }
+        }
+
+        // Multiple initialization attempts
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        window.addEventListener('load', () => {
+            if (!isInitialized) init();
+        });
+
+        setTimeout(init, 1000);
+    </script>
 </body>
 </html>
